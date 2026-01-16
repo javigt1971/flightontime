@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightOnTime</title>
+    <link rel="stylesheet" href="./dist/output.css">
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- header -->
+    <header
+        class="w-full p-4 bg-zinc-100 flex text-center items-center shadow-lg gap-4 md:flex-row md:justify-between md:items-center">
+        <a href="#" class="flex items-center gap-2">
+            <img class="w-10" src="./src/img/Logo_definitivo.png" alt="">
+            <p class="text-lg"><span class="text-blue-900">Flight</span>OnTime</p>
+        </a>
+        <nav>
+            <button id="team" class="text-sm text-blue-700 hover:underline">
+                Equipo
+            </button>
+        </nav>
+    </header>
+    <!-- main de contenido -->
+    <main class="flex flex-col flex-grow items-center">
+        <section class="w-full max-w-6xl flex flex-col gap-4 items-stretch justify-center md:flex-row">
+            <div class=" mt-8 pb-4 p-4 gap-9 flex flex-col justify-between w-full md:w-1/2">
+                <div class="flex flex-col justify-around text-center gap-3 mt-4">
+                    <h1 class="text-black text-xl mt-3 font-bold">Revisamos tu vuelo en segundos</h1>
+                    <p>
+                        Ingresa los detalles de tu vuelo y nuestra tecnologia analizará los
+                        registros para darte un pronóstico confiable.
+                    </p>
+                </div>
+                <div class="shadow-xl flex flex-col items-stretch gap-4">
+                    <form action="" class="flex flex-col w-full gap-4 p-4 ">
+                        <div class="flex flex-col w-full">
+                            <Label for="Aerolinea">Aerolinea</Label>
+                            <select class="bg-slate-300 rounded-lg md:rounded-lg p-2 w-full" name="Aerolinea"
+                                id="aerolinea">
+                                <option value="predeterminado">Sin valor</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="ORIGEN (IATA)" type="text">
+                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="DESTINO (IATA)" type="text">
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="FECHA DE PARTIDA" type="text">
+                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="HORA PROGRAMADA" type="text">
+                        </div>
+                        <button class="border-2 bg-blue-500 p-2 rounded-xl text-white mb-3 w-full
+                            md:px-4 self-stretch md:self-start" type="button">
+                            Analiza tu vuelo &gt;
+                        </button>
+
+                    </form>
+
+
+                </div>
+            </div>
+            <!-- div del resultado -->
+            <div
+                class="w-full md:w-80 bg-white rounded-xl flex flex-col mt-8 p-6 gap-6 shadow-xl text-center items-center">
+                <div class=" flex flex-col items-center text-center gap-5 justify-center p-4 h-96">
+                    <div class="bg-gray-500 w-28 h-28 rounded-full flex items-center justify-center">
+                        <p class="text-white text-2xl">...</p>
+                    </div>
+                    <div>
+                        <h3>Esperando itinerario</h3>
+                    </div>
+                    <p>
+                        Completa el formulario de la
+                        izquierda para generar un pronóstico
+                        inteligente en tiempo real.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <!-- footer -->
+    <footer class="text-center p-4 shadow-inner">
+        <p>&copy;FlightOnTime Alura</p>
+        <p>Desarrollado por <span class="font-bold">H12-25-L-Equipo 18-Data Science</span></p>
+    </footer>
+    <dialog id="EquipoDialog" class="rounded-xl p-6 w-full max-w-lg backdrop:bg-black/40">
+        <h2>Miembros del Equipo FlightOnTime</h2>
+        <ul>
+            <li>
+                <span>Elias Guardado</span>
+                <span>Data Science/FrontEnd</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Elias Guardado</span>
+                <span>Data Science/FrontEnd</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Felipe Araya Jiménez</span>
+                <span>Data Science</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Elias Guardado</span>
+                <span>Data Science</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Cristopher Jose Valverde Calderón</span>
+                <span>Data Science</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Fabiola Sepúlveda</span>
+                <span>Data Science</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Elias Guardado</span>
+                <span>Data Science/FrontEnd</span>
+                <a href="#">LinkedIn</a>
+            </li>
+            <li>
+                <span>Elias Guardado</span>
+                <span>Data Science/FrontEnd</span>
+                <a href="#">LinkedIn</a>
+            </li>
+        </ul>
+    </dialog>
+</body>
+
+</html>
