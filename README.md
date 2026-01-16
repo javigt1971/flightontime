@@ -35,53 +35,66 @@ El equipo BE:
 3. Recibe un JSON con los datos del vuelo.
 4. Carga el modelo entrenado (o llama a un microservicio Python).
 5. Devuelve la predicción y la probabilidad.
-6. Valida que los datos estén completos y correctos. 
+6. Valida que los datos estén completos y correctos.
+##
+## Arquitectura
+Flujo general (escenario realista):
 
+```text
+Cliente (Postman / app / www.flightontime.cl)
+       ↓
+API  Java  Spring Boot (tu controlador)
+       ↓ (HTTP POST)
+Microservicio Python (FastAPI o Flask)
+       ↓
+Modelo .joblib / .pkl
+
+```
 ---
 ## 📥 Formato de entrada y salida
 
 **Entrada que recibe la API**
 
-Json
-{
-  "aerolinea": "AZ",
-  "origen": "GIG",
-  "destino": "GRU",
-  "fecha_partida": "2025-11-10T14:30:00",
-  "distancia_km": 350
-}
+Json    
+{    
+  "aerolinea": "AZ",    
+  "origen": "GIG",    
+  "destino": "GRU",    
+  "fecha_partida": "2025-11-10T14:30:00",    
+  "distancia_km": 350    
+}    
 
 **Respuesta que entrega la API** 
 
-Json
-{
-  "prevision": "Retrasado",
-  "probabilidad": 0.78
-}
+Json    
+{    
+  "prevision": "Retrasado",    
+  "probabilidad": 0.78    
+}    
 
 ## 🧪 Ejemplos de uso
 **Ejemplo 1 – Vuelo puntual**
 
-Json
-{
-  "prevision": "Puntual",
-  "probabilidad": 0.22
-}
+Json    
+{    
+  "prevision": "Puntual",    
+  "probabilidad": 0.22    
+}    
 
 **Ejemplo 2 – Vuelo retrasado**
 
-Json
-{
-  "prevision": "Retrasado",
-  "probabilidad": 0.81
-}
+Json    
+{    
+  "prevision": "Retrasado",    
+  "probabilidad": 0.81    
+}    
 
 **Ejemplo 3 – Error por datos incompletos**
 
-Json
-{
-  "error": "El campo 'origen' es obligatorio"
-}
+Json    
+{    
+  "error": "El campo 'origen' es obligatorio"    
+}    
 
 ## ⚙️Cómo ejecutar el proyecto (explicado simple)
 **Paso 1: Entrenar el modelo (equipo DS)**
