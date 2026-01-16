@@ -37,17 +37,16 @@ El equipo BE:
 5. Devuelve la predicción y la probabilidad.
 6. Valida que los datos estén completos y correctos.
 ##
-## Arquitectura
-Flujo general (escenario realista):
+## Arquitectura general
 
 ```text
-Cliente (Postman / app / www.flightontime.cl)
-       ↓
-API  Java  Spring Boot (tu controlador)
-       ↓ (HTTP POST)
-Microservicio Python (FastAPI o Flask)
-       ↓
-Modelo .joblib / .pkl
+Cliente (Postman / App / www.flightontime.cl)
+   ↓
+API Back-End (Java / Spring Boot)
+   ↓
+API de Inferencia (Python / FastAPI)
+   ↓
+Modelo de ML (.pkl) + encoders + lista de features
 
 ```
 ---
@@ -96,29 +95,55 @@ Json
   "error": "El campo 'origen' es obligatorio"    
 }    
 
-## ⚙️Cómo ejecutar el proyecto (explicado simple)
-**Paso 1: Entrenar el modelo (equipo DS)**
-- Abrir el notebook en Google Colab.
+## ⚙️Cómo ejecutar el proyecto 
+**Paso 1: Entrenar el modelo (Equipo Data Science)**
+- Abrir el notebook de entrenamiento en Google Colab.
 - Ejecutar todas las celdas.
-- Al final se generará un archivo del modelo (por ejemplo model.pkl).
-  
-**Paso 2: Colocar el modelo en el Back-End**
-- Copiar el archivo del modelo dentro del proyecto Java (o configurarlo para que lo lea desde un microservicio Python).
-  
-**Paso 3: Ejecutar la API**
-En la carpeta del proyecto Java:
+- Al final se generan los artefactos del modelo:
+    - modelo_entrenado.pkl
+    - encoder.pkl
+    - features_modelo.pkl
+           
+Estos archivos representan el modelo final y no se versionan en GitHub por su tamaño.
+#  
+**Paso 2: Ejecutar la API de Inferencia (Data Science)**
+El equipo de Data Science expone el modelo mediante un microservicio en Python (FastAPI), que será consumido por el Back-End.
 
-Bash
+Desde la carpeta data-science-api:
+
+```text
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+La API queda disponible en:
+- API: http://127.0.0.1:8000
+- Swagger (documentación interactiva): http://127.0.0.1:8000/docs
+- Healthcheck: http://127.0.0.1:8000/health
+# 
+**Paso 3: Ejecutar el Back-End (Spring Boot)**
+El Back-End NO carga el modelo directamente, sino que consume la API de inferencia de Data Science.
+
+Desde la carpeta del proyecto Java:
+
 ./mvnw spring-boot:run
 
-La API quedará disponible en:
-http://localhost:8080/predict
+El endpoint principal queda disponible en:
+POST http://localhost:8080/predict
+#
+**Paso 4: Probar el sistema**
+- El Back-End envía la información del vuelo a la API DS.
+- La API DS devuelve:
+    -  Prevision (Puntual / Retrasado)
+    -  Probabilidad asociada.
+- El Back-End responde al cliente final.
 
-**Paso 4: Probar la API**
-Puedes usar:
+Las pruebas pueden realizarse con:
 - Postman
-- Una interfaz simple creada por el equipo
-
+- cURL
+- Swagger de la API DS
+---  
 ## 📘 Datos utilizados
 El proyecto usa un conjunto de datos con información básica de vuelos, como:
 - Aerolínea
