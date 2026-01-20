@@ -17,7 +17,7 @@
             <p class="text-lg"><span class="text-blue-900">Flight</span>OnTime</p>
         </a>
         <nav>
-            <button id="team" class="text-sm text-blue-700 hover:underline">
+            <button id="equipo" class="text-sm text-blue-700 hover:underline">
                 Equipo
             </button>
         </nav>
@@ -36,26 +36,26 @@
                 <div class="shadow-xl flex flex-col items-stretch gap-4">
                     <form action="" class="flex flex-col w-full gap-4 p-4 ">
                         <div class="flex flex-col w-full">
-                            <Label for="Aerolinea">Aerolinea</Label>
+                            <label for="Aerolinea">Aerolinea</label>
                             <select class="bg-slate-300 rounded-lg md:rounded-lg p-2 w-full" name="Aerolinea"
                                 id="aerolinea">
                                 <option value="predeterminado">Sin valor</option>
                             </select>
                         </div>
                         <div class="flex flex-col md:flex-row gap-4">
-                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                            <input id="origen" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
                                 placeholder="ORIGEN (IATA)" type="text">
-                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                            <input id="destino" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
                                 placeholder="DESTINO (IATA)" type="text">
                         </div>
 
                         <div class="flex flex-col md:flex-row gap-4">
-                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
-                                placeholder="FECHA DE PARTIDA" type="text">
-                            <input class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
-                                placeholder="HORA PROGRAMADA" type="text">
+                            <input id="fecha" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="FECHA DE PARTIDA" type="date">
+                            <input id="hora" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="HORA PROGRAMADA" type="time" step="1">
                         </div>
-                        <button class="border-2 bg-blue-500 p-2 rounded-xl text-white mb-3 w-full
+                        <button id="btn-action" class="border-2 bg-blue-700 hover:bg-blue-500 p-2 rounded-xl text-white mb-3 w-full
                             md:px-4 self-stretch md:self-start" type="button">
                             Analiza tu vuelo &gt;
                         </button>
@@ -68,18 +68,18 @@
             <!-- div del resultado -->
             <div
                 class="w-full md:w-80 bg-white rounded-xl flex flex-col mt-8 p-6 gap-6 shadow-xl text-center items-center">
-                <div class=" flex flex-col items-center text-center gap-5 justify-center p-4 h-96">
+                <div id="resultado" class=" flex flex-col items-center text-center gap-5 justify-center p-4 h-96">
                     <div class="bg-gray-500 w-28 h-28 rounded-full flex items-center justify-center">
                         <p class="text-white text-2xl">...</p>
                     </div>
-                    <div>
+                    <div id="resultado">
                         <h3>Esperando itinerario</h3>
-                    </div>
-                    <p>
+                        <p>
                         Completa el formulario de la
                         izquierda para generar un pronóstico
                         inteligente en tiempo real.
                     </p>
+                    </div>
                 </div>
             </div>
 
@@ -90,51 +90,58 @@
         <p>&copy;FlightOnTime Alura</p>
         <p>Desarrollado por <span class="font-bold">H12-25-L-Equipo 18-Data Science</span></p>
     </footer>
+
+    <!-- modal para mostrar miembros -->
     <dialog id="EquipoDialog" class="rounded-xl p-6 w-full max-w-lg backdrop:bg-black/40">
-        <h2>Miembros del Equipo FlightOnTime</h2>
-        <ul>
-            <li>
+        <h2 class="text-center font-bold">Miembros del Equipo FlightOnTime</h2>
+        <ul class="text-center gap-4">
+            <li class="gap-4 mt-2 p-2">
                 <span>Elias Guardado</span>
-                <span>Data Science/FrontEnd</span>
-                <a href="#">LinkedIn</a>
+                <span class="font-bold">Data Science/FrontEnd</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/elias-jimenez-guardado">LinkedIn</a>
             </li>
-            <li>
-                <span>Elias Guardado</span>
-                <span>Data Science/FrontEnd</span>
-                <a href="#">LinkedIn</a>
-            </li>
-            <li>
+            <li class="gap-4 mt-2 p-2">
                 <span>Felipe Araya Jiménez</span>
-                <span>Data Science</span>
-                <a href="#">LinkedIn</a>
+                <span class="font-bold">Data Science</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/farayaj/">LinkedIn</a>
             </li>
-            <li>
-                <span>Elias Guardado</span>
-                <span>Data Science</span>
-                <a href="#">LinkedIn</a>
-            </li>
-            <li>
+            <li class="gap-4 mt-2 p-2">
                 <span>Cristopher Jose Valverde Calderón</span>
-                <span>Data Science</span>
-                <a href="#">LinkedIn</a>
+                <span class="font-bold">Data Science</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/cristopher-jose-valverde-calderón-a1a096348">LinkedIn</a>
             </li>
-            <li>
+            <li class="gap-4 mt-2 p-2">
                 <span>Fabiola Sepúlveda</span>
-                <span>Data Science</span>
-                <a href="#">LinkedIn</a>
+                <span class="font-bold">Data Science/API</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/fabiola-sepulvedam">LinkedIn</a>
             </li>
-            <li>
-                <span>Elias Guardado</span>
-                <span>Data Science/FrontEnd</span>
-                <a href="#">LinkedIn</a>
+            <li class="gap-4 mt-2 p-2">
+                <span>Sergio Javier Calderon Mendez</span>
+                <span class="font-bold">BackEnd/github</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/s-j-c-m">LinkedIn</a>
             </li>
-            <li>
-                <span>Elias Guardado</span>
-                <span>Data Science/FrontEnd</span>
-                <a href="#">LinkedIn</a>
+            <li class="gap-4 mt-2 p-2">
+                <span>Wilder Jaime Jorge Zegarra</span>
+                <span class="font-bold">BackEnd</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/wilder-jorge-zegarra">LinkedIn</a>
+            </li>
+            <li class="gap-4 mt-2 p-2">
+                <span>David Eduardo Figueroa Lopez</span>
+                <span class="font-bold">BackEnd</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/david-figueroa-ii/">LinkedIn</a>
+            </li>
+            <li class="gap-4 mt-2 p-2">
+                <span>Andrea Rosero</span>
+                <span class="font-bold">BackEnd/github</span>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/andrearoseroperez/">LinkedIn</a>
             </li>
         </ul>
+        <div class="flex justify-center mt-2">
+            <button id="btn-close" class="border-2 bg-red-700 p-2 rounded-xl text-white mb-3
+                md:px-4 self-stretch md:self-start">Cerrar</button>
+        </div>
     </dialog>
+    <script src="./src/js/app.js"></script>
 </body>
 
 </html>
