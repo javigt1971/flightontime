@@ -7,13 +7,16 @@ from datetime import datetime
 
 app = FastAPI(title="FlightOnTime API")
 
+
 def load_pickle(path: str):
     # Carga un objeto serializado con pickle (.pkl).
     with open(path, "rb") as f:
         return pickle.load(f)
 
+
 # Carga de artefactos del modelo (exportados desde el notebook DS) 
 modelo = load_pickle("app/artifacts/modelo_entrenado.pkl")
+print("modelo.classes_:", getattr(modelo, "classes_", None))
 encoders: Dict[str, Any] = load_pickle("app/artifacts/encoder.pkl")
 features_modelo = load_pickle("app/artifacts/features_modelo.pkl")
 
@@ -41,14 +44,16 @@ class FlightRequest(BaseModel):
     DISTANCE_KM: Optional[float] = Field(None, ge=0)
     DISTANCE: Optional[float] = Field(None, ge=0, description="millas")
 
-def parse_dep_time_hour(dep_time: Any) -> int:
-     """
-    Convierte la hora de salida a hora (0..23).
-    Acepta:
-    - 1345 (int) -> 13
-    - "13:45" -> 13
-    - "1345" -> 13
+
+def parse_dep_time_hour(dep_time: Any) -> int:  
     """
+    Convierte la hora de salida a hora (0..23).
+
+    Acepta:
+      - 1345 (int) -> 13
+      - "13:45" -> 13
+      - "1345" -> 13
+    """ 
     if isinstance(dep_time, int):
         return dep_time // 100
     s = str(dep_time).strip()
@@ -57,6 +62,7 @@ def parse_dep_time_hour(dep_time: Any) -> int:
     if s.isdigit():
         return int(s) // 100
     raise ValueError(f"DEP_TIME inválido: {dep_time}")
+
 
 def month_and_dow_from_date(date_str: str):
     """
@@ -67,8 +73,9 @@ def month_and_dow_from_date(date_str: str):
     dt = datetime.strptime(date_str, "%Y-%m-%d")
     return dt.month, dt.weekday() + 1  # 1..7
 
+
 def safe_label_encode(le, value: str, field_name: str) -> int:
-     """
+    """
     Aplica LabelEncoder de forma segura.
     Si llega una categoría no vista durante entrenamiento, retorna 400 con mensaje claro.
     """
@@ -78,6 +85,7 @@ def safe_label_encode(le, value: str, field_name: str) -> int:
     if value not in le.classes_:
         raise HTTPException(status_code=400, detail=f"Valor no visto para {field_name}: '{value}'")
     return int(le.transform([value])[0])
+
 
 def build_features(req: FlightRequest) -> pd.DataFrame:
     """
@@ -125,14 +133,16 @@ def build_features(req: FlightRequest) -> pd.DataFrame:
     X = pd.DataFrame([row]).reindex(columns=features_modelo, fill_value=0)
     return X
 
+
 @app.get("/health")
 def health():
     # Healthcheck básico para verificar que la API y el modelo están operativos.
     return {"status": "ok", "n_features": len(features_modelo)}
 
+
 @app.post("/predict")
 def predict(req: FlightRequest):
-       """
+    """
     Endpoint de uso interno (DS) para pruebas/depuración.
     Devuelve predicción y probabilidad de retraso (clase 1).
     """
@@ -142,17 +152,18 @@ def predict(req: FlightRequest):
     label = "Retrasado" if pred == 1 else "Puntual"
     return {"prediccion": label, "probabilidad_retraso": proba}
 
-# Formato de entrada solicitado por el proyecto (para integración con Back-End) 
+
+# Formato de entrada solicitado por el proyecto (para integración con Back-End)
 class BackendFlightRequest(BaseModel):
     aerolinea: str
     origen: str
     destino: str
-    # Fecha y hora en formato ISO 8601 (ej: "2025-11-10T14:30:00", puede venir con "Z" u offset)
-    fecha_partida: str 
-    distancia_km: float
+    fechaPartida: str  # ISO 8601: "2025-11-10T14:30:00" (puede venir con Z u offset)
+    distanciaKm: float
+
 
 def parse_fecha_partida(fecha_partida: str):
-     """
+    """
     Convierte fecha_partida (ISO 8601) en variables internas requeridas por el modelo:
     - MONTH (1-12)
     - DAY_OF_WEEK (1-7, donde 1=Lunes)
@@ -164,16 +175,17 @@ def parse_fecha_partida(fecha_partida: str):
     - "2025-11-10T14:30:00+00:00"
     """
     s = fecha_partida.strip()
-
+    
     # Soporte para formato UTC con "Z"
     if s.endswith("Z"):
-        s = s[:-1] + "+00:00"  
-
-    dt = datetime.fromisoformat(s)  # soporta con o sin zona horaria (offset)
+        s = s[:-1] + "+00:00"
+        
+    dt = datetime.fromisoformat(s) # soporta con o sin zona horaria (offset)
     month = dt.month
-    day_of_week = dt.weekday() + 1  # 1..7
-    dep_time_hour = dt.hour         # 0..23
+    day_of_week = dt.weekday() + 1 # 1..7
+    dep_time_hour = dt.hour        # 0..23
     return month, day_of_week, dep_time_hour
+
 
 @app.post("/predict_backend")
 def predict_backend(req: BackendFlightRequest):
@@ -197,11 +209,9 @@ def predict_backend(req: BackendFlightRequest):
 
     # 4) Inferencia: prevision + probabilidad (clase 1 = Retrasado)
     proba = float(modelo.predict_proba(X)[0][1]) if hasattr(modelo, "predict_proba") else None
-    prev = int(modelo.predict(X)[0])
-    label = "Retrasado" if prev == 1 else "Puntual"
+    pred = int(modelo.predict(X)[0])
+    label = "Retrasado" if pred == 1 else "Puntual"
 
     # 5) Respuesta en el formato esperado por el proyecto (probabilidad con 2 decimales)
     prob_redondeada = round(proba, 2) if proba is not None else None
     return {"prevision": label, "probabilidad": prob_redondeada}
-
-
