@@ -25,11 +25,11 @@ Endpoint recomendado para integración con Back-End.
 **Entrada (JSON):**
 ```json
 {
-  "aerolinea": "AZ",
-  "origen": "GIG",
-  "destino": "GRU",
-  "fechaPartida": "2025-11-10T14:30:00",
-  "distanciaKm": 350
+  "aerolinea": "B6",
+  "origen": "JFK",
+  "destino": "MCO",
+  "fechaPartida": "2015-03-13T00:05:00",
+  "distanciaKm": 1520
 }
 ```
 
@@ -37,7 +37,7 @@ Endpoint recomendado para integración con Back-End.
 ```json
 {
   "prevision": "Retrasado",
-  "probabilidad": 0.78
+  "probabilidad": 0.72
 }
 ```
 
