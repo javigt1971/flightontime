@@ -162,9 +162,9 @@ class BackendFlightRequest(BaseModel):
     distanciaKm: float
 
 
-def parse_fecha_partida(fecha_partida: str):
+def parse_fechaPartida(fechaPartida: str):
     """
-    Convierte fecha_partida (ISO 8601) en variables internas requeridas por el modelo:
+    Convierte fechaPartida (ISO 8601) en variables internas requeridas por el modelo:
     - MONTH (1-12)
     - DAY_OF_WEEK (1-7, donde 1=Lunes)
     - DEP_TIME_HOUR (0-23)
@@ -174,7 +174,7 @@ def parse_fecha_partida(fecha_partida: str):
     - "2025-11-10T14:30:00Z"
     - "2025-11-10T14:30:00+00:00"
     """
-    s = fecha_partida.strip()
+    s = fechaPartida.strip()
     
     # Soporte para formato UTC con "Z"
     if s.endswith("Z"):
@@ -189,8 +189,8 @@ def parse_fecha_partida(fecha_partida: str):
 
 @app.post("/predict_backend")
 def predict_backend(req: BackendFlightRequest):
-    # 1) Derivar variables temporales internas desde fecha_partida
-    month, dow, dep_hour = parse_fecha_partida(req.fecha_partida)
+    # 1) Derivar variables temporales internas desde fechaPartida
+    month, dow, dep_hour = parse_fechaPartida(req.fechaPartida)
 
     # 2) Transformar variables categóricas usando los encoders entrenados
     #    (esto asegura consistencia con el modelo exportado)
@@ -201,7 +201,7 @@ def predict_backend(req: BackendFlightRequest):
         "DEP_TIME_HOUR": int(dep_hour),
         "MONTH": int(month),
         "DAY_OF_WEEK": int(dow),
-        "DISTANCE_KM": float(req.distancia_km),
+        "DISTANCE_KM": float(req.distanciaKm),
     }
 
     # 3) Alinear columnas exactas esperadas por el modelo (lista + orden)
