@@ -59,8 +59,8 @@ Json
   "aerolinea": "AZ",    
   "origen": "GIG",    
   "destino": "GRU",    
-  "fecha_partida": "2025-11-10T14:30:00",    
-  "distancia_km": 350    
+  "fechaPartida": "2025-11-10T14:30:00",    
+  "distanciaKm": 350    
 }    
 
 **Respuesta que entrega la API** 
