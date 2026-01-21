@@ -28,8 +28,8 @@ Endpoint recomendado para integración con Back-End.
   "aerolinea": "AZ",
   "origen": "GIG",
   "destino": "GRU",
-  "fecha_partida": "2025-11-10T14:30:00",
-  "distancia_km": 350
+  "fechaPartida": "2025-11-10T14:30:00",
+  "distanciaKm": 350
 }
 ```
 
@@ -120,4 +120,5 @@ http://127.0.0.1:8000/docs
 
 - Si llega una aerolínea/aeropuerto no visto durante entrenamiento, la API responde con `400` y un mensaje claro.
 - La probabilidad se entrega redondeada a 2 decimales para cumplir el formato esperado.
+
 
