@@ -10,14 +10,14 @@ Construir un **MVP (Producto Mínimo Viable)** que:
 - Reciba información básica de un vuelo.
 - Procesarla con un modelo entrenado.
 - Responder si el vuelo será **Puntual** o **Retrasado**.  
-- Entregar también la **probabilidad** asociada a esa predicción.
+- Entregar también la **probabilidad** asociada a esa previsión.
 Ejemplo:
 “Retrasado con probabilidad 0.78”
 
 ---
-## 🧠 Como funciona el proyecto:
-**Parte 1: Ciencia de Datos**
-El equipo DS:
+## 🧠 Parte 1: Ciencia de Datos (Equipo Data Science)
+
+El equipo de Data Science: 
 
 1. Analiza los datos de vuelos.
 2. Limpia y prepara la información.
@@ -26,9 +26,9 @@ El equipo DS:
 5. Evalúa su desempeño.
 6. Guarda el modelo en un archivo (model.pkl o similar).
 Ese archivo es el que luego usará el Back-End.
-##
-**Parte 2: Back-End**
-El equipo BE:
+
+## 🖥️ Parte 2: Back-End (Equipo Back-End)
+El equipo Back-End:
 
 1. Construye una API REST con Spring Boot.
 2. Crea un endpoint llamado **/predict.**
@@ -36,8 +36,8 @@ El equipo BE:
 4. Carga el modelo entrenado (o llama a un microservicio Python).
 5. Devuelve la predicción y la probabilidad.
 6. Valida que los datos estén completos y correctos.
-##
-## Arquitectura general
+---
+## 🏗️ Arquitectura general
 
 ```text
 Cliente (Postman / App / www.flightontime.cl)
@@ -59,8 +59,8 @@ Json
   "aerolinea": "AZ",    
   "origen": "GIG",    
   "destino": "GRU",    
-  "fechaPartida": "2025-11-10T14:30:00",    
-  "distanciaKm": 350    
+  "fecha_partida": "2025-11-10T14:30:00",    
+  "distancia_km": 350    
 }    
 
 **Respuesta que entrega la API** 
@@ -129,36 +129,87 @@ Desde la carpeta del proyecto Java:
 
 ./mvnw spring-boot:run
 
-El endpoint principal queda disponible en:
-POST http://localhost:8080/predict
+Endpoint principal:
+**POST http://localhost:8080/predict**
 #
 **Paso 4: Probar el sistema**
-- El Back-End envía la información del vuelo a la API DS.
-- La API DS devuelve:
-    -  Prevision (Puntual / Retrasado)
+- El Back-End envía la información del vuelo a la API Data Science.
+- La API Data Science devuelve:
+    -  Previsión (Puntual / Retrasado)
     -  Probabilidad asociada.
 - El Back-End responde al cliente final.
 
-Las pruebas pueden realizarse con:
+Pruebas recomendadas:
 - Postman
-- cURL
-- Swagger de la API DS
+- Swagger de la API Data Science
 ---  
 ## 📘 Datos utilizados
-El proyecto usa un conjunto de datos con información básica de vuelos, como:
+
+El proyecto utiliza un conjunto de datos con información básica de vuelos, como:
+
 - Aerolínea
 - Origen
 - Destino
 - Fecha y hora
 - Distancia
 
-## 🔧 Funcionalidades opcionales 
+**Fuente del dataset (Kaggle):** [Kaggle - Flight Delay and Cancellation Dataset 2019-2023](https://www.kaggle.com/datasets/patrickzel/flight-delay-and-cancellation-dataset-2019-2023)
+
+
+---
+## 🛠️ Herramientas utilizadas
+
+Para desarrollar el MVP se utilizaron herramientas y tecnologías en distintas áreas:
+
+### 🧑‍💻 Lenguajes de programación
+
+* **Python**: entrenamiento del modelo y API de inferencia (FastAPI).
+* **Java**: API principal del sistema (Spring Boot).
+* **JavaScript**: soporte para el ecosistema web (cliente / front si aplica).
+
+### 🎨 Front-End y tecnologías web
+
+* **HTML**: estructura de interfaz web.
+* **Tailwind CSS**: estilos rápidos y consistentes.
+* **Vite**: entorno de desarrollo y build para el Front-End.
+
+### 🧠 Ciencia de datos
+
+* **Google Colab**: notebooks para análisis, limpieza y entrenamiento del modelo.
+* **FastAPI**: microservicio de inferencia que expone predicción y probabilidad.
+* **Swagger UI**: documentación interactiva generada automáticamente por FastAPI.
+
+### ⚙️ Back-End
+
+* **Spring Boot**: API principal que consume la API de inferencia y expone el endpoint `/predict`.
+* **IntelliJ IDEA**: entorno de desarrollo utilizado para el Back-End.
+
+### 🧪 Pruebas y consumo de API
+
+* **Postman**: pruebas de endpoints y validación de requests/responses.
+
+### 🌐 Control de versiones y repositorios
+
+* **GitHub**: versionamiento, colaboración y repositorios del proyecto.
+
+### 📋 Gestión y colaboración
+
+* **Trello**: organización y seguimiento de tareas.
+* **Google Docs / Google Sheets**: documentación y gestión colaborativa.
+* **Google Meet / WhatsApp**: coordinación del equipo.
+* **No Country**: entorno de colaboración y dinámica del hackathon/simulación.
+
+### 🎥 Comunicación y presentaciones
+
+* **OBS Studio**: grabación de demos y presentaciones.
+* **Canva**: diseño de material visual y soporte de presentación.
+---
+## 🚀 Mejoras Propuestas y Oportunidades de Crecimiento
+ 
 - Estadísticas agregadas (por ejemplo, porcentaje de retrasos del día).
 - Guardar las predicciones en una base de datos.
 - Dashboard visual en tiempo real.
 - Integración con datos de clima.
-- Predicciones en lote (archivo CSV).
-- Explicación de qué variables influyen más en la predicción.
 - Contenerización con Docker.
 - Pruebas automatizadas.
 
