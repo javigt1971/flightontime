@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Artefactos del modelo (NO versionar)
+app/artifacts/*.pkl
+app/artifacts/*.joblib
+app/artifacts/*.onnx
