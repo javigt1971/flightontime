@@ -25,11 +25,11 @@ Endpoint recomendado para integración con Back-End.
 **Entrada (JSON):**
 ```json
 {
-  "aerolinea": "AZ",
-  "origen": "GIG",
-  "destino": "GRU",
-  "fecha_partida": "2025-11-10T14:30:00",
-  "distancia_km": 350
+  "aerolinea": "B6",
+  "origen": "JFK",
+  "destino": "MCO",
+  "fechaPartida": "2015-03-13T00:05:00",
+  "distanciaKm": 1520
 }
 ```
 
@@ -37,7 +37,7 @@ Endpoint recomendado para integración con Back-End.
 ```json
 {
   "prevision": "Retrasado",
-  "probabilidad": 0.78
+  "probabilidad": 0.72
 }
 ```
 
@@ -101,8 +101,8 @@ http://127.0.0.1:8000/docs
   "aerolinea": "DL",
   "origen": "ATL",
   "destino": "MIA",
-  "fecha_partida": "2015-07-20T08:10:00",
-  "distancia_km": 957
+  "fechaPartida": "2015-07-20T08:10:00",
+  "distanciaKm": 957
 }
 ```
 
@@ -120,3 +120,4 @@ http://127.0.0.1:8000/docs
 
 - Si llega una aerolínea/aeropuerto no visto durante entrenamiento, la API responde con `400` y un mensaje claro.
 - La probabilidad se entrega redondeada a 2 decimales para cumplir el formato esperado.
+

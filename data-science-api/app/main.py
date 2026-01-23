@@ -158,8 +158,8 @@ class BackendFlightRequest(BaseModel):
     aerolinea: str
     origen: str
     destino: str
-    fechaPartida: str  # ISO 8601: "2025-11-10T14:30:00" (puede venir con Z u offset)
-    distanciaKm: float
+    fecha_partida: str  # ISO 8601: "2025-11-10T14:30:00" (puede venir con Z u offset)
+    distancia_km: float
 
 
 def parse_fecha_partida(fecha_partida: str):
@@ -201,7 +201,7 @@ def predict_backend(req: BackendFlightRequest):
         "DEP_TIME_HOUR": int(dep_hour),
         "MONTH": int(month),
         "DAY_OF_WEEK": int(dow),
-        "DISTANCE_KM": float(req.distancia_km),
+        "DISTANCE_KM": float(req.distanciaKm),
     }
 
     # 3) Alinear columnas exactas esperadas por el modelo (lista + orden)

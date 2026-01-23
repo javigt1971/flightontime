@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlightOnTime</title>
     <link rel="stylesheet" href="./dist/output.css">
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spinkit/2.0.1/spinkit.min.css">
 </head>
 
 <body class="min-h-screen flex flex-col">
@@ -34,32 +36,32 @@
                     </p>
                 </div>
                 <div class="shadow-xl flex flex-col items-stretch gap-4">
-                    <form action="" class="flex flex-col w-full gap-4 p-4 ">
-                        <div class="flex flex-col w-full">
-                            <label for="Aerolinea">Aerolinea</label>
-                            <select class="bg-slate-300 rounded-lg md:rounded-lg p-2 w-full" name="Aerolinea"
-                                id="aerolinea">
-                                <option value="predeterminado">Sin valor</option>
-                            </select>
-                        </div>
+                    <form id="formulario-vuelo" action="POST" class="flex flex-col w-full gap-4 p-4 ">
                         <div class="flex flex-col md:flex-row gap-4">
+                            <input id="aerolinea" type="text"
+                                class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="Aerolinea: DL, AA">
                             <input id="origen" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
                                 placeholder="ORIGEN (IATA)" type="text">
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-4">
                             <input id="destino" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
                                 placeholder="DESTINO (IATA)" type="text">
+                            <input id="fecha" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="FECHA DE PARTIDA 2015-07-20" type="text">
                         </div>
 
                         <div class="flex flex-col md:flex-row gap-4">
-                            <input id="fecha" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
-                                placeholder="FECHA DE PARTIDA" type="date">
                             <input id="hora" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
-                                placeholder="HORA PROGRAMADA" type="time" step="1">
+                                placeholder="HORA PROGRAMADA: 08:10:00" type="text">
+                            <input id="distancia" class="border-2 rounded-lg p-2 text-center w-full md:w-1/2"
+                                placeholder="Distancia Km" type="number">
                         </div>
                         <button id="btn-action" class="border-2 bg-blue-700 hover:bg-blue-500 p-2 rounded-xl text-white mb-3 w-full
                             md:px-4 self-stretch md:self-start" type="button">
                             Analiza tu vuelo &gt;
                         </button>
-
+                        <div id="alerta"></div>
                     </form>
 
 
@@ -73,12 +75,16 @@
                         <p class="text-white text-2xl">...</p>
                     </div>
                     <div id="resultado">
-                        <h3>Esperando itinerario</h3>
-                        <p>
-                        Completa el formulario de la
-                        izquierda para generar un pronóstico
-                        inteligente en tiempo real.
-                    </p>
+                        <div id="res-content">
+                            <h3>Esperando itinerario</h3>
+                            <p>
+                                Completa el formulario de la
+                                izquierda para generar un pronóstico
+                                inteligente en tiempo real.
+                            </p>
+                        </div>
+                        <div class="spinner hidden"></div>
+
                     </div>
                 </div>
             </div>
@@ -98,42 +104,50 @@
             <li class="gap-4 mt-2 p-2">
                 <span>Elias Guardado</span>
                 <span class="font-bold">Data Science/FrontEnd</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/elias-jimenez-guardado">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/elias-jimenez-guardado">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Felipe Araya Jiménez</span>
                 <span class="font-bold">Data Science</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/farayaj/">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/farayaj/">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Cristopher Jose Valverde Calderón</span>
                 <span class="font-bold">Data Science</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/cristopher-jose-valverde-calderón-a1a096348">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/cristopher-jose-valverde-calderón-a1a096348">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Fabiola Sepúlveda</span>
                 <span class="font-bold">Data Science/API</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/fabiola-sepulvedam">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/fabiola-sepulvedam">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Sergio Javier Calderon Mendez</span>
                 <span class="font-bold">BackEnd/github</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/s-j-c-m">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/s-j-c-m">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Wilder Jaime Jorge Zegarra</span>
                 <span class="font-bold">BackEnd</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/wilder-jorge-zegarra">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/wilder-jorge-zegarra">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>David Eduardo Figueroa Lopez</span>
                 <span class="font-bold">BackEnd</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/david-figueroa-ii/">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/david-figueroa-ii/">LinkedIn</a>
             </li>
             <li class="gap-4 mt-2 p-2">
                 <span>Andrea Rosero</span>
                 <span class="font-bold">BackEnd/github</span>
-                <a class="text-blue-600" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/andrearoseroperez/">LinkedIn</a>
+                <a class="text-blue-600" target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/andrearoseroperez/">LinkedIn</a>
             </li>
         </ul>
         <div class="flex justify-center mt-2">
