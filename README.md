@@ -40,7 +40,7 @@ El equipo Back-End:
 ## 🏗️ Arquitectura general
 
 ```text
-Cliente (Postman / App / www.flightontime.cl)
+Cliente (Postman / App / www.flightontime.com)
    ↓
 API Back-End (Java / Spring Boot)
    ↓
@@ -212,4 +212,9 @@ Para desarrollar el MVP se utilizaron herramientas y tecnologías en distintas �
 - Integración con datos de clima.
 - Contenerización con Docker.
 - Pruebas automatizadas.
+
+---
+## 📚 Referencias
+- [Tablero Trello del proyecto](https://trello.com/b/QmhQEbIF/proyecto-flightontime-%E2%9C%88%EF%B8%8F-predicci%C3%B3n-de-retrasos-de-vuelos)
+- [Repositorio GitHub](https://github.com/javigt1971/flightontime)
 
