@@ -158,13 +158,13 @@ class BackendFlightRequest(BaseModel):
     aerolinea: str
     origen: str
     destino: str
-    fechaPartida: str  # ISO 8601: "2025-11-10T14:30:00" (puede venir con Z u offset)
-    distanciaKm: float
+    fecha_partida: str  # ISO 8601: "2025-11-10T14:30:00" (puede venir con Z u offset)
+    distancia_km: float
 
 
-def parse_fechaPartida(fechaPartida: str):
+def parse_fecha_partida(fecha_partida: str):
     """
-    Convierte fechaPartida (ISO 8601) en variables internas requeridas por el modelo:
+    Convierte fecha_partida (ISO 8601) en variables internas requeridas por el modelo:
     - MONTH (1-12)
     - DAY_OF_WEEK (1-7, donde 1=Lunes)
     - DEP_TIME_HOUR (0-23)
@@ -174,7 +174,7 @@ def parse_fechaPartida(fechaPartida: str):
     - "2025-11-10T14:30:00Z"
     - "2025-11-10T14:30:00+00:00"
     """
-    s = fechaPartida.strip()
+    s = fecha_partida.strip()
     
     # Soporte para formato UTC con "Z"
     if s.endswith("Z"):
@@ -189,8 +189,8 @@ def parse_fechaPartida(fechaPartida: str):
 
 @app.post("/predict_backend")
 def predict_backend(req: BackendFlightRequest):
-    # 1) Derivar variables temporales internas desde fechaPartida
-    month, dow, dep_hour = parse_fechaPartida(req.fechaPartida)
+    # 1) Derivar variables temporales internas desde fecha_partida
+    month, dow, dep_hour = parse_fecha_partida(req.fecha_partida)
 
     # 2) Transformar variables categóricas usando los encoders entrenados
     #    (esto asegura consistencia con el modelo exportado)
